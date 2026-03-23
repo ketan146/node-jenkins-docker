@@ -3,15 +3,24 @@ pipeline {
 
     stages {
 
-        stage('Build') {
+        stage('Clone') {
+            steps {
+                git 'https://github.com/ketan146/node-jenkins-docker.git'
+            }
+        }
+
+        stage('Build Docker Image') {
             steps {
                 sh 'docker build -t myapp .'
             }
         }
 
-        stage('Run') {
+        stage('Run Container') {
             steps {
-                sh 'docker run -d -p 3000:3000 myapp'
+                sh '''
+                docker rm -f myapp-container || true
+                docker run -d -p 3000:3000 --name myapp-container myapp
+                '''
             }
         }
     }
