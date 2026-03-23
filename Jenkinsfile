@@ -3,9 +3,9 @@ pipeline {
 
     stages {
 
-        stage('Clone') {
+        stage('DEBUG') {
             steps {
-                git 'https://github.com/ketan146/node-jenkins-docker.git'
+                sh 'echo WORKING_PIPELINE'
             }
         }
 
